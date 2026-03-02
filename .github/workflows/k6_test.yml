@@ -1,0 +1,38 @@
+name: k6 Performance Pipeline
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  k6_test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Use Node.js 18.x
+      uses: actions/setup-node@v4
+      with:
+        node-version: 18.x
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    # --- PASOS CLAVE PARA LA TAREA ---
+    
+    - name: Start Node App
+      run: npm start & # Levanta tu server en segundo plano
+      
+    - name: Wait for App
+      run: sleep 10 # Espera a que el server esté listo
+
+    - name: Run k6 Load Test
+      uses: grafana/k6-action@v0.3.0
+      with:
+        filename: script_k6.js # Tu script de k6
+        cloud: true
+        token: ${{ secrets.K6_CLOUD_TOKEN }} # El secreto que ya guardaste
