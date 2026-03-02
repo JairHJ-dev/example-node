@@ -2,10 +2,15 @@ import http from 'k6/http';
 import { sleep, check } from 'k6';
 
 export const options = {
+  ext: {
+    loadimpact: {
+      projectID: 6873271,
+      name: "Prueba UTEQ"
+    }
+  },
   stages: [
-    { target: 10, duration: '30s' },
-    { target: 10, duration: '1m' },
-    { target: 0, duration: '30s' },
+    { target: 10, duration: '20s' },
+    { target: 0, duration: '10s' },
   ],
 };
 
