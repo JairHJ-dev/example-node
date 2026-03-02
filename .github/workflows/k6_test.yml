@@ -25,14 +25,15 @@ jobs:
     # --- PASOS CLAVE PARA LA TAREA ---
     
     - name: Start Node App
-      run: npm start & # Levanta tu server en segundo plano
+      run: npm start &
       
     - name: Wait for App
-      run: sleep 10 # Espera a que el server esté listo
+      run: sleep 10
 
     - name: Run k6 Load Test
       uses: grafana/k6-action@v0.3.0
+      env:
+        K6_CLOUD_TOKEN: ${{ secrets.K6_CLOUD_TOKEN }}
       with:
-        filename: script_k6.js # Tu script de k6
-        cloud: true
-        token: ${{ secrets.K6_CLOUD_TOKEN }} # El secreto que ya guardaste
+        filename: script_k6.js
+        flags: --out cloud
