@@ -3,10 +3,10 @@ name: CI Pipeline - Análisis SAST con SonarQube
 on:
   push:
     branches:
-      - main
+      - master
   pull_request:
     branches:
-      - main
+      - master
 
 jobs:
   sonarQube-analysis:
