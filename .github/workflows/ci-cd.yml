@@ -27,7 +27,6 @@ jobs:
         with:
           args: >
             -Dsonar.projectKey=mi-proyecto-gestion-sw
-            -Dsonar.qualitygate.wait=true
 
   # FASE 2: Rendimiento
   k6_performance:
